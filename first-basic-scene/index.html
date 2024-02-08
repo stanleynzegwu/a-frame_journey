@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script>
+          AFRAME.registerComponent('scale-on-mouseenter', {
+            schema: {
+              to: {default: '2.5 2.5 2.5', type: 'vec3'}
+            },
+        
+            init: function () {
+              const data = this.data;
+              const el = this.el;
+              this.el.addEventListener('mouseenter', function () {
+                console.log(el.object3D.scale)
+                el.object3D.scale.copy(data.to);
+              });
+            }
+        });
+    </script>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <a-asset-item id="model" src="./assets/wineBottle1.glb"></a-asset-item>
+            <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+            <img id="skyTexture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+            <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+            <!-- <audio src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay
+            preload loop></audio> -->
+            <a-sound src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay="true" loop="true"
+            position="-3 1 -4"></a-sound>
+        </a-assets>
+        <a-entity gltf-model="#model" position="0 2 -5" rotation="0 0 -90"></a-entity>
+        <!-- <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2" 
+        ></a-box> -->
+        <!-- <a-entity environment="preset: forest; dressingAmount: 500"></a-entity> -->
+        <a-sky src="#skyTexture" ></a-sky>
+        <a-plane src="#groundTexture" width="30" height="30" rotation="-90 0 0" repeat="10 10"></a-plane>
+        <a-light type="ambient" color="#445451"></a-light>
+        <a-light type="point" intensity="2" position="2 4 4"></a-light>
+
+        <a-camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+    </a-scene>
+</body>
+</html>
